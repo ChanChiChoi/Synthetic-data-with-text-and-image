@@ -5,7 +5,7 @@ when traning the models of text detection, one problem is how to get the labeled
 1 - put the necessary files on the correspond directory
 
 2 - update the below variable in main.py\\
-resultImgsDir \\
+resultImgsDir \n
 resultXmlDir\\
 bgiDir\\
 gTtf\\
