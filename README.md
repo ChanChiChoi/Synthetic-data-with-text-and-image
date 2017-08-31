@@ -4,6 +4,6 @@ when traning the models of text detection, one problem is how to get the labeled
 
 put the necessary files on the correspond directory, then
 
->>>python main.py
+'>>>'python main.py
 
 you will get them.
