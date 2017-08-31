@@ -21,12 +21,15 @@ resultXmlDir = '/home/synth_recepit_text/result_xmls'
 #bgiDIr: the directory of background images
 bgiDir = '/home/synth_recepit_text/bgi'
 
-FORMAT = '%(asctime)-15s [%(processName)s] %(message)s'
+#gTtf:the global variable of ttf files path
 gTtf= '/home/synth_recepit_text/ttf'
+
+FORMAT = '%(asctime)-15s [%(processName)s] %(message)s'
 logging.basicConfig(format = FORMAT)
 
 #gBlockSize: the size of text lines, which one process will process
 gBlockSize = 30
+
 #ttfSize: the set of sizes of font, which will be used to create the text
 ttfSize = [25,30,35,40,45,50,55,60,65,70,75,80]
 
@@ -50,13 +53,14 @@ def _paste(bgi,draw,ttf,size,curRow,curCol,curText,cols):
     else:
         string = ''
         
-    #=====
     '''width height '''
     width,height = ttfont.getsize(string)
+    
+     #=====   
 #    bgi = np.array(bgi,dtype = np.uint8)
 #    cv2.rectangle(bgi,(curCol,curRow),(curCol+width,curRow+height),(0,0,0),1)
-#    
 #    bgi = Image.fromarray(bgi)
+
     return bgi,string,width,height
 
 def _xml(doc,anno,string,xminT,yminT,xmaxT,ymaxT):
@@ -97,6 +101,8 @@ def _xml(doc,anno,string,xminT,yminT,xmaxT,ymaxT):
     bndbox.appendChild(xmax)
     bndbox.appendChild(ymax)
     body.appendChild(bndbox)
+    
+    return
 
 
 def paste(imgname,bgi,text,ttf,ttfRandom):
@@ -141,6 +147,7 @@ def paste(imgname,bgi,text,ttf,ttfRandom):
         #cur row point
         '''paste the text on bgi '''
         if curCol < cols*0.9 and curRow+ttfRandom[curTtfSize] <= rows:
+            
            #if curcols is bigger than 0.9*cols, then do not paste the line
            curText = text[random.randint(0,len(text)-1)]
            
@@ -184,6 +191,7 @@ def handle(text):
     with open(xmlFileName, "w") as fxml:
         fxml.write(str(doc.toprettyxml(indent = "    ", newl = "\n", encoding = "utf-8"),encoding = 'utf-8'))
     logging.warn('{}'.format(ind))
+    
     return
 
 if __name__ == '__main__':
@@ -191,7 +199,8 @@ if __name__ == '__main__':
     #the directory of text,which will be paste on the background images
     textDir = '/home/zzc/data/synth_recepit_text/text'
     
-    total = open(osp.join(textDir,'text.txt')).readlines()
+    total = []
+    [total.extend(open(i).readlines()) for i in glob.glob(osp.join(textDir,'*.txt'))]
 
     numP = 20
     totalSP = []
