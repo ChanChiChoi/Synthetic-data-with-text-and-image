@@ -21,3 +21,5 @@ textDir
 '>>>python main.py
 
 ## 4 - you will get them.
+![Samples](图片1.png "Synthetic Samples")
+![Samples](图片2.png "Synthetic Samples")
